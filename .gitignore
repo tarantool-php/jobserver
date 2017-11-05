@@ -1,0 +1,8 @@
+/app/config/jobserver_config.lua
+/app/config/local.php
+/var/log/
+/vendor/
+/.env
+/.php_cs
+/docker-compose.override.yml
+/phpunit.xml

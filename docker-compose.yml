@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  tarantool:
+    container_name: jobserver_tarantool
+    image: tarantool/tarantool:1.7
+    restart: always
+    volumes:
+      - ./app/jobserver.lua:/usr/share/tarantool/jobserver.lua
+      - ./app/config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
+      - ./app/config/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
+    command: tarantool /opt/tarantool/jobserver_instance.lua
+    ports:
+      - "3301:3301"
+    environment:
+      - TARANTOOL_USER_NAME
+      - TARANTOOL_USER_PASSWORD
+  worker:
+    container_name: jobserver_worker
+    restart: always
+    build: ./docker/worker
+    image: jobserver:worker
+    working_dir: /opt/jobserver
+    command: vendor/bin/jobqueue run default -H tarantool -c app/config/jobqueue.php -e app/config/executors.php -f var/log/workers.log -l debug
+    volumes:
+      - .:/opt/jobserver
+    depends_on:
+      - tarantool

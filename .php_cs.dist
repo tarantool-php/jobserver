@@ -1,0 +1,24 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
+    ->exclude('docker')
+    ->exclude('var')
+;
+
+return PhpCsFixer\Config::create()
+    ->setFinder($finder)
+    ->setRiskyAllowed(true)
+    ->setRules([
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'no_useless_else' => true,
+        'no_useless_return' => true,
+        'ordered_imports' => true,
+        'phpdoc_order' => true,
+        'php_unit_strict' => true,
+        'strict_comparison' => true,
+    ])
+    ->setCacheFile(__DIR__.'/var/.php_cs.cache')
+;

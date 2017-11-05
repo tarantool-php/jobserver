@@ -1,0 +1,41 @@
+{
+    "name": "tarantool/jobserver",
+    "description": "A skeleton for jobqueue applications.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eugene Leonovich",
+            "email": "gen.work@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "rybakit/arguments-resolver": "^0.5.1",
+        "symfony/console": "^3.3",
+        "tarantool/jobqueue": "dev-listener"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.2",
+        "phpunit/phpunit": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
+        "files": [
+            "app/app.php"
+        ]
+    },
+    "autoload-dev" : {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.1"
+        },
+        "sort-packages": true
+    }
+}

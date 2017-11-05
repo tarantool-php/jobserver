@@ -1,0 +1,6 @@
+local os = require('os')
+
+return {
+    user = os.getenv('TARANTOOL_USER_NAME'),
+    password = os.getenv('TARANTOOL_USER_PASSWORD')
+}

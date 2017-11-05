@@ -1,0 +1,12 @@
+<?php
+
+use App\Di\Container;
+use App\Di\Options;
+
+return function (Container $container): Container {
+    return $container
+        ->setEnv('dev')
+        ->setDebug(true)
+        ->set(Options::GREET_YELL, true)
+    ;
+};

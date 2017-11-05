@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  worker:
+    volumes:
+      - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+      - ./docker/worker/dev.ini:/usr/local/etc/php/conf.d/99-dev.ini
+    environment:
+      - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
+      - TNT_JOBQUEUE_USER=${TARANTOOL_USER_NAME}
+      - TNT_JOBQUEUE_PASSWORD=${TARANTOOL_USER_PASSWORD}
+      - XDEBUG_CONFIG=remote_host=<your-ip-address>
+  tarantool_admin:
+    container_name: jobserver_tarantool_admin
+    image: quay.io/basis-company/tarantool-admin
+    restart: always
+    ports:
+      - "8001:80"
+    depends_on:
+      - tarantool

@@ -9,7 +9,7 @@ It contains the minimal configuration files and folders you will need for quick 
 The recommended way to create a new application is through [Composer](http://getcomposer.org):
 
 ```sh
-$ composer create-project tarantool/jobserver -s dev
+composer create-project tarantool/jobserver -s dev
 ```
 
 

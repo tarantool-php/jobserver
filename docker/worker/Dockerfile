@@ -3,7 +3,7 @@ FROM php:7-alpine
 RUN echo http://dl-5.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
 
 RUN apk add --update --no-cache libintl icu icu-dev zlib-dev autoconf g++ make bash && \
-    docker-php-ext-install opcache intl zip pdo_mysql
+    docker-php-ext-install opcache intl zip
 
 # DEV packages
 RUN apk add --update --no-cache git openssh

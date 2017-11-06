@@ -1,6 +1,6 @@
 /app/config/jobserver_config.lua
 /app/config/local.php
-/var/log/
+/var/
 /vendor/
 /.env
 /.php_cs

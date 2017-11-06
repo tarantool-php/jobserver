@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Handler;
+namespace App\Tests\Unit\UseCase\Greet;
 
 use App\UseCase\Greet\GreetHandler;
 use PHPUnit\Framework\TestCase;

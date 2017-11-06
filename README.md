@@ -4,6 +4,15 @@ JobServer is a skeleton repository used for creating background jobs.
 It contains the minimal configuration files and folders you will need for quick start from scratch.
 
 
+## Installation
+
+The recommended way to create a new application is through [Composer](http://getcomposer.org):
+
+```sh
+$ composer create-project tarantool/jobserver -s dev
+```
+
+
 ## Setup
 
 First, create your own `docker-compose.override.yml` file by copying 

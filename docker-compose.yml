@@ -6,9 +6,9 @@ services:
     image: tarantool/tarantool:1.7
     restart: always
     volumes:
-      - ./app/jobserver.lua:/usr/share/tarantool/jobserver.lua
       - ./app/config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
-      - ./app/config/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
+      - ./app/jobserver.lua:/usr/share/tarantool/jobserver.lua
+      - ./app/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
     command: tarantool /opt/tarantool/jobserver_instance.lua
     ports:
       - "3301:3301"

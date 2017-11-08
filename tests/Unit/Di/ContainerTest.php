@@ -33,7 +33,7 @@ class ContainerTest extends TestCase
         $options = ['foo' => 'bar', 'baz' => 'qux'];
         $container = new Container($options, 'test', true);
 
-        $this->assertEquals($options, $container->getOptions());
+        $this->assertSame($options, $container->getOptions());
     }
 
     /**

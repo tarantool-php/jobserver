@@ -50,7 +50,7 @@ class ContainerBuilderTest extends TestCase
         $options = ['foo' => 'bar', 'baz' => 'qux'];
         $builder = new ContainerBuilder($options);
 
-        $this->assertEquals($options, $builder->getOptions());
+        $this->assertSame($options, $builder->getOptions());
     }
 
     public function testSet(): void

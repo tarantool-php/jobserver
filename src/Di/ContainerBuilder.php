@@ -4,34 +4,18 @@ namespace App\Di;
 
 class ContainerBuilder
 {
-    use Config;
+    use Config {
+        set as public;
+        setEnv as public;
+        setDebug as public;
+        setOptions as public;
+    }
 
     public function __construct(array $options = [])
     {
-        $this->options = $options;
-        $this->env = 'dev';
-        $this->debug = false;
-    }
-
-    public function setEnv(string $env): self
-    {
-        $this->env = $env;
-
-        return $this;
-    }
-
-    public function setDebug(bool $debug): self
-    {
-        $this->debug = $debug;
-
-        return $this;
-    }
-
-    public function set(string $option, $value): self
-    {
-        $this->options[$option] = $value;
-
-        return $this;
+        $this->setEnv('dev');
+        $this->setDebug(false);
+        $this->setOptions($options);
     }
 
     public function build(): Container

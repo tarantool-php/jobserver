@@ -37,6 +37,14 @@ class ContainerBuilderTest extends TestCase
         $this->assertFalse($builder->isDebug());
     }
 
+    public function testSetOptions(): void
+    {
+        $builder = new ContainerBuilder();
+        $builder->setOptions(['foo' => 'bar']);
+
+        $this->assertSame('bar', $builder->get('foo'));
+    }
+
     public function testSet(): void
     {
         $builder = new ContainerBuilder();

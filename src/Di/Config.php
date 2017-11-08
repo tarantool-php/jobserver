@@ -4,18 +4,46 @@ namespace App\Di;
 
 trait Config
 {
-    private $options;
     private $env;
     private $debug;
+    private $options;
+
+    private function setEnv(string $env): self
+    {
+        $this->env = $env;
+
+        return $this;
+    }
 
     public function getEnv(): string
     {
         return $this->env;
     }
 
+    private function setDebug(bool $debug): self
+    {
+        $this->debug = $debug;
+
+        return $this;
+    }
+
     public function isDebug(): bool
     {
         return $this->debug;
+    }
+
+    private function setOptions(array $options): self
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    private function set(string $option, $value): self
+    {
+        $this->options[$option] = $value;
+
+        return $this;
     }
 
     public function get(string $option)

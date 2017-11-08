@@ -11,8 +11,8 @@ final class Container
 
     public function __construct(array $options, string $env, bool $debug)
     {
-        $this->options = $options;
-        $this->env = $env;
-        $this->debug = $debug;
+        $this->setOptions($options);
+        $this->setEnv($env);
+        $this->setDebug($debug);
     }
 }

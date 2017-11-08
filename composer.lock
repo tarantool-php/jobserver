@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "amphp/amp",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "8b136336a9af595d00681c1407ef598ccfa599ab"
+                "reference": "9f693b1d5394d5b35b97f83bbf3f1c94339b988a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/8b136336a9af595d00681c1407ef598ccfa599ab",
-                "reference": "8b136336a9af595d00681c1407ef598ccfa599ab",
+                "url": "https://api.github.com/repos/amphp/amp/zipball/9f693b1d5394d5b35b97f83bbf3f1c94339b988a",
+                "reference": "9f693b1d5394d5b35b97f83bbf3f1c94339b988a",
                 "shasum": ""
             },
             "require": {
@@ -79,7 +79,7 @@
                 "non-blocking",
                 "promise"
             ],
-            "time": "2017-09-19T19:08:25+00:00"
+            "time": "2017-11-07T09:04:49+00:00"
         },
         {
             "name": "amphp/byte-stream",
@@ -878,12 +878,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tarantool-php/jobqueue.git",
-                "reference": "a1d66bded061ce5e8788e72b0b8d93829a19ab1c"
+                "reference": "a78bc0e9626173c1a1c8ca91588169654a93d7a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tarantool-php/jobqueue/zipball/a1d66bded061ce5e8788e72b0b8d93829a19ab1c",
-                "reference": "a1d66bded061ce5e8788e72b0b8d93829a19ab1c",
+                "url": "https://api.github.com/repos/tarantool-php/jobqueue/zipball/a78bc0e9626173c1a1c8ca91588169654a93d7a3",
+                "reference": "a78bc0e9626173c1a1c8ca91588169654a93d7a3",
                 "shasum": ""
             },
             "require": {
@@ -942,7 +942,7 @@
                 "ttr",
                 "worker"
             ],
-            "time": "2017-11-05T19:36:01+00:00"
+            "time": "2017-11-06T16:02:17+00:00"
         },
         {
             "name": "tarantool/queue",
@@ -2074,16 +2074,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.4.3",
+            "version": "6.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "06b28548fd2b4a20c3cd6e247dc86331a7d4db13"
+                "reference": "562f7dc75d46510a4ed5d16189ae57fbe45a9932"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/06b28548fd2b4a20c3cd6e247dc86331a7d4db13",
-                "reference": "06b28548fd2b4a20c3cd6e247dc86331a7d4db13",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/562f7dc75d46510a4ed5d16189ae57fbe45a9932",
+                "reference": "562f7dc75d46510a4ed5d16189ae57fbe45a9932",
                 "shasum": ""
             },
             "require": {
@@ -2154,7 +2154,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-10-16T13:18:59+00:00"
+            "time": "2017-11-08T11:26:09+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

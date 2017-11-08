@@ -1,10 +1,10 @@
 <?php
 
-use App\Di\Container;
+use App\Di\ContainerBuilder;
 use App\Di\Options;
 
-return function (Container $container): Container {
-    return $container
+return function (ContainerBuilder $builder): void {
+    $builder
         ->setEnv('dev')
         ->setDebug(true)
         ->set(Options::GREET_YELL, true)

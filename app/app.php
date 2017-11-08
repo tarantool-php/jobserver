@@ -3,20 +3,18 @@
 namespace App;
 
 use App\Di\Container;
+use App\Di\ContainerBuilder;
 
 function container(): Container
 {
     $getSettings = require __DIR__.'/config/settings.php';
-    $container = new Container($getSettings(dirname(__DIR__)));
-
-    $container->setEnv(getenv('APP_ENV') ?: 'prod');
-    $container->setDebug(getenv('APP_DEBUG') ?: false);
+    $builder = new ContainerBuilder($getSettings(dirname(__DIR__)));
 
     $localConfigFile = __DIR__.'/config/local.php';
     if (file_exists($localConfigFile)) {
-        $extendContainer = require $localConfigFile;
-        $container = $extendContainer($container);
+        $configureContainer = require $localConfigFile;
+        $configureContainer($builder);
     }
 
-    return $container;
+    return $builder->build();
 }

@@ -28,6 +28,14 @@ class ContainerTest extends TestCase
         $this->assertTrue($container->isDebug());
     }
 
+    public function testGetOptions(): void
+    {
+        $options = ['foo' => 'bar', 'baz' => 'qux'];
+        $container = new Container($options, 'test', true);
+
+        $this->assertEquals($options, $container->getOptions());
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Unknown option "foo".

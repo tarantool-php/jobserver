@@ -39,6 +39,11 @@ trait Config
         return $this;
     }
 
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
     private function set(string $option, $value): self
     {
         $this->options[$option] = $value;

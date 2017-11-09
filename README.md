@@ -17,7 +17,7 @@ composer create-project tarantool/jobserver -s dev
 
 First, create your own `docker-compose.override.yml` file by copying 
 the [docker-compose.override.yml.dist](docker-compose.override.yml.dist) file and customize to your needs.
-Do the same for all `*.dist` files located in [app/config](app/config).
+Do the same for [.env.dist](.env.dist) and all `*.dist` files located in [app/config](app/config).
 
 Then, browse to the project directory and execute this command:
 

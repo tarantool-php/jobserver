@@ -36,7 +36,8 @@ docker-compose exec worker ./jobserver
 ## Put jobs into the "default" queue
 
 ```bash
-docker-compose exec worker ./jobserver queue:put default '{"payload": {"service": "greet", "args": {"name": "foobar"}}}' -H tarantool
+docker-compose exec worker ./jobserver queue:put default -H tarantool \
+    '{"payload": {"service": "greet", "args": {"name": "foobar"}}}'
 ``` 
 
 

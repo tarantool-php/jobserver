@@ -36,7 +36,5 @@ trait JobQueue
         ];
     }
 
-    abstract public function get(string $option);
-
     abstract public function getLogger(): Logger;
 }

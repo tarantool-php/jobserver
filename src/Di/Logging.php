@@ -16,7 +16,7 @@ trait Logging
             new StreamHandler(
                 $this->get(Options::LOGGER_FILE),
                 $this->isDebug() ? Logger::DEBUG : Logger::INFO
-            )
+            ),
         ]);
     }
 

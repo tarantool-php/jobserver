@@ -56,7 +56,6 @@ docker-compose run --rm worker bash -c ' \
     vendor/bin/jobqueue run default \
     --config app/config/jobqueue.php \
     --executors-config app/config/executors.php \
-    --log-file var/log/workers.log \
     --user jobserver \
     --host tarantool \
 '

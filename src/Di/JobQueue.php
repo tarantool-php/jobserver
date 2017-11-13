@@ -3,7 +3,8 @@
 namespace App\Di;
 
 use App\JobQueue\Executor\ExecutorFactory;
-use Psr\Log\LoggerInterface as Logger;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Tarantool\JobQueue\DefaultConfigFactory;
 use Tarantool\JobQueue\Executor\Executor;
 
@@ -13,12 +14,11 @@ trait JobQueue
     {
         static $factory;
 
-        if (!$factory) {
-            $factory = new DefaultConfigFactory();
-            $factory->setConnectionOptions(['tcp_nodelay' => true]);
-        }
-
-        return $factory;
+        return $factory ?? $factory = (new DefaultConfigFactory())
+            ->setLogFile($this->get(Options::LOGGER_FILE))
+            ->setLogLevel($this->isDebug() ? LogLevel::DEBUG : LogLevel::INFO)
+            ->setConnectionOptions(['tcp_nodelay' => true])
+        ;
     }
 
     public function getJobQueueExecutor(): Executor
@@ -36,5 +36,9 @@ trait JobQueue
         ];
     }
 
-    abstract public function getLogger(): Logger;
+    abstract public function get(string $option);
+
+    abstract public function getLogger(): LoggerInterface;
+
+    abstract public function isDebug(): bool;
 }

@@ -4,6 +4,6 @@ namespace App\Di;
 
 abstract class Options
 {
-    const GREET_YELL = 'greet.yell';
-    const LOGGER_FILE = 'logger.file';
+    public const GREET_YELL = 'greet.yell';
+    public const LOGGER_FILE = 'logger.file';
 }

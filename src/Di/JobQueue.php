@@ -32,7 +32,6 @@ trait JobQueue
     {
         return [
             'logger' => $this->getLogger(),
-            'container' => $this,
         ];
     }
 

@@ -64,8 +64,7 @@ docker-compose exec worker ./jobserver -vvv handler:greet foobar
 
 To be able to run a job from the console, you need to write an adapter for the symfony command 
 and register it in [app/config/commands.php](app/config/commands.php). This is how the adapter 
-looks like for [GreetHandler](src/UseCase/Greet/GreetHandler.php): [GreetCommand](src/UseCase/Greet/GreetCommand.php)
-Here is such an adapter for GreetHandler.
+looks like for GreetHandler: [GreetCommand](src/UseCase/Greet/GreetCommand.php).
 
 To see a list of all registered commands, run:
 

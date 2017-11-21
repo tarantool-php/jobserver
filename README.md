@@ -59,7 +59,7 @@ Now in the log you will see that the job is executed:
 Also, you can run the job directly in the console, bypassing the queue:
 
 ```sh
-docker-compose exec worker ./jobserver handler:greet foobar
+docker-compose exec worker ./jobserver -vvv handler:greet foobar
 ```
 
 To be able to run a job from the console, you need to write an adapter for the symfony command 

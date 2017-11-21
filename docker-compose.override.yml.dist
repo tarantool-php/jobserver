@@ -10,6 +10,7 @@ services:
       - TNT_JOBQUEUE_USER=${TARANTOOL_USER_NAME}
       - TNT_JOBQUEUE_PASSWORD=${TARANTOOL_USER_PASSWORD}
       - XDEBUG_CONFIG=remote_host=<your-ip-address>
+      - PHP_IDE_CONFIG=serverName=jobserver.dev
   tarantool_admin:
     container_name: jobserver_tarantool_admin
     image: quay.io/basis-company/tarantool-admin

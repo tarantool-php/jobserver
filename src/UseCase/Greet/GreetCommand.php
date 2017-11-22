@@ -28,7 +28,7 @@ class GreetCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         ($this->handler)(
             $input->getArgument('name'),

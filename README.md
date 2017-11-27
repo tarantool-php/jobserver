@@ -76,7 +76,7 @@ docker-compose exec worker ./jobserver
 ## Tarantool
 
 To use a web interface for Tarantool, open your browser and access 
-[http://localhost:8001/](http://localhost:8001/) (make sure that 
+the [http://localhost:8001](http://localhost:8001/) address (make sure that 
 Docker containers are running).
 
 To get into Tarantool console as admin on a running Docker container, execute:

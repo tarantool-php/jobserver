@@ -1,6 +1,6 @@
 {
     "name": "tarantool/jobserver",
-    "description": "A skeleton for jobqueue applications.",
+    "description": "A skeleton application for creating and processing background jobs.",
     "type": "project",
     "license": "MIT",
     "authors": [

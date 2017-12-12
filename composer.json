@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": "^7.1",
+        "rybakit/arguments-resolver": "^0.5.1",
         "symfony/console": "^3.4",
         "tarantool/jobqueue": "dev-listener"
     },

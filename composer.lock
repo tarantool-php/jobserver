@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e69501ccfca24fc169a6a78a317addea",
+    "content-hash": "c9f69ee37462098bc5cb05f0a31ca11a",
     "packages": [
         {
             "name": "amphp/amp",
@@ -432,6 +432,59 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "rybakit/arguments-resolver",
+            "version": "v0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rybakit/arguments-resolver.git",
+                "reference": "5cb9f193794b62e42c0c7cf5c77d9366a4a4a236"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rybakit/arguments-resolver/zipball/5cb9f193794b62e42c0c7cf5c77d9366a4a4a236",
+                "reference": "5cb9f193794b62e42c0c7cf5c77d9366a4a4a236",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ArgumentsResolver\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eugene Leonovich",
+                    "email": "gen.work@gmail.com"
+                }
+            ],
+            "description": "ArgumentsResolver allows you to determine the arguments to pass to a function or method.",
+            "homepage": "https://github.com/rybakit/arguments-resolver",
+            "keywords": [
+                "arguments",
+                "callable",
+                "function",
+                "injection",
+                "invoke",
+                "method",
+                "parameters",
+                "reflection",
+                "resolver"
+            ],
+            "time": "2017-01-03T12:20:50+00:00"
         },
         {
             "name": "rybakit/msgpack",

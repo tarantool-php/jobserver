@@ -13,13 +13,13 @@ class ExecutorFactory
 {
     public function __invoke(Container $container): Executor
     {
-        $executor = new CallbackExecutor(
+        $callbackExecutor = new CallbackExecutor(
             new ContainerCallbackResolver($container),
             $container->getJobQueueAutowiredArgs()
         );
 
         return new ExecutorChain([
-            $executor,
+            $callbackExecutor,
             new ProcessExecutor(),
         ]);
     }

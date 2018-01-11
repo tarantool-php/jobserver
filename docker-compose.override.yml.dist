@@ -9,7 +9,7 @@ services:
       - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
       - TNT_JOBQUEUE_USER=${TARANTOOL_USER_NAME}
       - TNT_JOBQUEUE_PASSWORD=${TARANTOOL_USER_PASSWORD}
-      - XDEBUG_CONFIG=remote_host=<your-ip-address>
+      - XDEBUG_CONFIG=remote_host=${LOCAL_IP}
       - PHP_IDE_CONFIG=serverName=jobserver.dev
   tarantool_admin:
     container_name: jobserver_tarantool_admin

@@ -53,11 +53,11 @@ trait Config
 
     public function get(string $option)
     {
-        if (!array_key_exists($option, $this->options)) {
-            throw new \InvalidArgumentException(sprintf('Unknown option "%s".', $option));
+        if (array_key_exists($option, $this->options)) {
+            return $this->options[$option];
         }
 
-        return $this->options[$option];
+        throw new \InvalidArgumentException(sprintf('Unknown option "%s".', $option));
     }
 
     public function tryGet(string $option, $default = null)

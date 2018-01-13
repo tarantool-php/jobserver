@@ -29,7 +29,7 @@ class ContainerCallbackResolver implements CallbackResolver
             return $this->container->$getter();
         }
 
-        throw new \InvalidArgumentException(sprintf('Unknown handler "%s".', $handlerName));
+        throw new \UnexpectedValueException(sprintf('Unknown handler "%s".', $handlerName));
     }
 
     private static function camelize(string $value): string

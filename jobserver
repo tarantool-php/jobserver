@@ -3,6 +3,7 @@
 
 namespace App;
 
+use PackageVersions\Versions;
 use Symfony\Component\Console\Application;
 use Tarantool\JobQueue\Console\Command\KickCommand;
 use Tarantool\JobQueue\Console\Command\PutCommand;
@@ -11,7 +12,9 @@ use Tarantool\JobQueue\Console\Command\TruncateCommand;
 
 require __DIR__.'/vendor/autoload.php';
 
-$app = new Application('Job Server', '@package_version@');
+$version = array_values(array_slice(Versions::VERSIONS, -1))[0];
+
+$app = new Application('Job Server', $version);
 $app->add((new KickCommand())->setName('queue:kick'));
 $app->add((new PutCommand())->setName('queue:put'));
 $app->add((new StatsCommand())->setName('queue:stats'));

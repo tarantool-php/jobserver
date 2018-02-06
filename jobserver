@@ -12,9 +12,9 @@ use Tarantool\JobQueue\Console\Command\TruncateCommand;
 
 require __DIR__.'/vendor/autoload.php';
 
-$version = array_values(array_slice(Versions::VERSIONS, -1))[0];
-
+$version = Versions::getVersion(Versions::ROOT_PACKAGE_NAME);
 $app = new Application('Job Server', $version);
+
 $app->add((new KickCommand())->setName('queue:kick'));
 $app->add((new PutCommand())->setName('queue:put'));
 $app->add((new StatsCommand())->setName('queue:stats'));

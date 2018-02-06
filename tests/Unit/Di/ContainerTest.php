@@ -5,27 +5,27 @@ namespace App\Tests\Unit\Di;
 use App\Di\Container;
 use PHPUnit\Framework\TestCase;
 
-class ContainerTest extends TestCase
+final class ContainerTest extends TestCase
 {
     public function testGet(): void
     {
         $container = new Container(['foo' => 'bar'], 'test', true);
 
-        $this->assertSame('bar', $container->get('foo'));
+        self::assertSame('bar', $container->get('foo'));
     }
 
     public function testGetEnv(): void
     {
         $container = new Container([], 'test', true);
 
-        $this->assertSame('test', $container->getEnv());
+        self::assertSame('test', $container->getEnv());
     }
 
     public function testIsDebug(): void
     {
         $container = new Container([], 'test', true);
 
-        $this->assertTrue($container->isDebug());
+        self::assertTrue($container->isDebug());
     }
 
     public function testGetOptions(): void
@@ -33,7 +33,7 @@ class ContainerTest extends TestCase
         $options = ['foo' => 'bar', 'baz' => 'qux'];
         $container = new Container($options, 'test', true);
 
-        $this->assertSame($options, $container->getOptions());
+        self::assertSame($options, $container->getOptions());
     }
 
     /**
@@ -51,6 +51,6 @@ class ContainerTest extends TestCase
     {
         $container = new Container([], 'test', true);
 
-        $this->assertSame(42, $container->tryGet('foo', 42));
+        self::assertSame(42, $container->tryGet('foo', 42));
     }
 }

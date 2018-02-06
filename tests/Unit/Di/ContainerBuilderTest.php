@@ -6,14 +6,14 @@ use App\Di\Container;
 use App\Di\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
 
-class ContainerBuilderTest extends TestCase
+final class ContainerBuilderTest extends TestCase
 {
     public function testConstructorSetOptions(): void
     {
         $options = ['foo' => 'bar'];
         $builder = new ContainerBuilder($options);
 
-        $this->assertSame($options['foo'], $builder->get('foo'));
+        self::assertSame($options['foo'], $builder->get('foo'));
     }
 
     public function testSetGetEnv(): void
@@ -21,20 +21,20 @@ class ContainerBuilderTest extends TestCase
         $builder = new ContainerBuilder();
         $env = 'test';
 
-        $this->assertNotSame($env, $builder->getEnv());
+        self::assertNotSame($env, $builder->getEnv());
         $builder->setEnv($env);
-        $this->assertSame($env, $builder->getEnv());
+        self::assertSame($env, $builder->getEnv());
     }
 
     public function testSetGetDebug(): void
     {
         $builder = new ContainerBuilder();
 
-        $this->assertNotTrue($builder->isDebug());
+        self::assertNotTrue($builder->isDebug());
         $builder->setDebug(true);
-        $this->assertTrue($builder->isDebug());
+        self::assertTrue($builder->isDebug());
         $builder->setDebug(false);
-        $this->assertFalse($builder->isDebug());
+        self::assertFalse($builder->isDebug());
     }
 
     public function testSetOptions(): void
@@ -42,7 +42,7 @@ class ContainerBuilderTest extends TestCase
         $builder = new ContainerBuilder();
         $builder->setOptions(['foo' => 'bar']);
 
-        $this->assertSame('bar', $builder->get('foo'));
+        self::assertSame('bar', $builder->get('foo'));
     }
 
     public function testGetOptions(): void
@@ -50,7 +50,7 @@ class ContainerBuilderTest extends TestCase
         $options = ['foo' => 'bar', 'baz' => 'qux'];
         $builder = new ContainerBuilder($options);
 
-        $this->assertSame($options, $builder->getOptions());
+        self::assertSame($options, $builder->getOptions());
     }
 
     public function testSet(): void
@@ -58,7 +58,7 @@ class ContainerBuilderTest extends TestCase
         $builder = new ContainerBuilder();
         $builder->set('foo', 'bar');
 
-        $this->assertSame('bar', $builder->get('foo'));
+        self::assertSame('bar', $builder->get('foo'));
     }
 
     /**
@@ -76,7 +76,7 @@ class ContainerBuilderTest extends TestCase
     {
         $builder = new ContainerBuilder();
 
-        $this->assertSame(42, $builder->tryGet('foo', 42));
+        self::assertSame(42, $builder->tryGet('foo', 42));
     }
 
     public function testBuild(): void
@@ -87,9 +87,9 @@ class ContainerBuilderTest extends TestCase
 
         $container = $builder->build();
 
-        $this->assertInstanceOf(Container::class, $container);
-        $this->assertSame('bar', $container->get('foo'));
-        $this->assertSame('baz', $container->getEnv());
-        $this->assertTrue($container->isDebug());
+        self::assertInstanceOf(Container::class, $container);
+        self::assertSame('bar', $container->get('foo'));
+        self::assertSame('baz', $container->getEnv());
+        self::assertTrue($container->isDebug());
     }
 }

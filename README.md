@@ -116,7 +116,7 @@ docker-compose stop worker
 Then, start listening for php debug connections and then execute:
 
 ```sh
-docker-compose run --rm worker bash -c ' \
+LOCAL_IP=<your-local-ip> docker-compose run --rm worker bash -c ' \
     TNT_JOBQUEUE_PASSWORD=jobserver \
     vendor/bin/jobqueue run default \
     --config app/config/jobqueue.php \

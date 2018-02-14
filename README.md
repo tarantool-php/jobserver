@@ -126,6 +126,12 @@ LOCAL_IP=<your-local-ip> docker-compose run --rm worker bash -c ' \
 '
 ```
 
+> *Note*
+>
+> Check [this manual](https://confluence.jetbrains.com/display/PhpStorm/Simultaneous+debugging+sessions+with+PhpStorm) to learn 
+> how to debug multiple processes (for example, the runner and background jobs) 
+> simultaneously in PhpStorm.
+
 
 ## License
 

@@ -19,3 +19,7 @@ services:
       - "8001:80"
     depends_on:
       - tarantool
+    environment:
+      # https://github.com/basis-company/tarantool-admin#configure-using-env
+      - TARANTOOL_TCP_NODELAY=1
+      - TARANTOOL_DATABASE_QUERY=0

@@ -15,5 +15,6 @@ end
 
 return {
     start = start,
-    stop = stop
+    stop = stop,
+    queue = queue
 }

@@ -25,3 +25,13 @@ end
 -- load a new version of app and all dependencies
 jobserver = require('jobserver')
 jobserver.start(config)
+
+-- start monitoring
+if config.monitor.host then
+    require('monitor').monitor(
+        config.monitor.host,
+        config.monitor.port,
+        jobserver.queue,
+        config.monitor.scrape_interval
+    )
+end

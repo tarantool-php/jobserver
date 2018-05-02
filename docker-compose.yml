@@ -8,6 +8,7 @@ services:
     volumes:
       - ./app/config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
       - ./app/jobserver.lua:/usr/share/tarantool/jobserver.lua
+      - ./app/monitor.lua:/usr/share/tarantool/monitor.lua
       - ./app/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
     command: tarantool /opt/tarantool/jobserver_instance.lua
     ports:
@@ -15,6 +16,8 @@ services:
     environment:
       - TARANTOOL_USER_NAME
       - TARANTOOL_USER_PASSWORD
+      - TARANTOOL_MONITOR_HOST
+      - TARANTOOL_MONITOR_PORT
   worker:
     container_name: jobserver_worker
     restart: always

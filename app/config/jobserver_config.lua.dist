@@ -2,5 +2,10 @@ local os = require('os')
 
 return {
     user = os.getenv('TARANTOOL_USER_NAME'),
-    password = os.getenv('TARANTOOL_USER_PASSWORD')
+    password = os.getenv('TARANTOOL_USER_PASSWORD'),
+    monitor = {
+        host = os.getenv('TARANTOOL_MONITOR_HOST'),
+        port = os.getenv('TARANTOOL_MONITOR_PORT'),
+        scrape_interval = 15
+    }
 }

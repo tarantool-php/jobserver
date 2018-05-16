@@ -11,6 +11,14 @@ local function worker(queue, scrape_interval)
                 "jobserver_" .. tube .. "_task_ready",
                 "Number of ready tasks"
             ),
+            task_taken = prom.gauge(
+                "jobserver_" .. tube .. "_task_taken",
+                "Number of taken tasks"
+            ),
+            task_done = prom.gauge(
+                "jobserver_" .. tube .. "_task_done",
+                "Number of done tasks"
+            ),
             task_buried = prom.gauge(
                 "jobserver_" .. tube .. "_task_buried",
                 "Number of buried tasks"
@@ -32,6 +40,8 @@ local function worker(queue, scrape_interval)
 
         for tube, metric in pairs(metrics) do
             metric.task_ready:set(stats[tube].tasks.ready, {tube})
+            metric.task_taken:set(stats[tube].tasks.taken, {tube})
+            metric.task_done:set(stats[tube].tasks.done, {tube})
             metric.task_buried:set(stats[tube].tasks.buried, {tube})
             metric.task_delayed:set(stats[tube].tasks.delayed, {tube})
             metric.task_total:set(stats[tube].tasks.total, {tube})

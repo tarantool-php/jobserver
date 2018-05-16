@@ -27,10 +27,9 @@ docker-compose up -d
 ```
 
 After the command has completed successfully, you'll have a running server ready to execute jobs.
-If you open a log file in follow mode, you'll see something like the following:
+If you open a log file in follow mode (`tail -f var/log/workers.log`), you'll see something like the following:
 
 ```sh
-$ tail -f var/log/workers.log 
 [2017-11-19 00:00:23] default:worker.DEBUG: Idling... [] []
 [2017-11-19 00:00:24] default:worker.DEBUG: Idling... [] []
 [2017-11-19 00:00:25] default:worker.DEBUG: Idling... [] []

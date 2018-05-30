@@ -1,5 +1,6 @@
 /app/config/jobserver_config.lua
 /app/config/local.php
+/res/prometheus/alertmanager.yml
 /var/
 /vendor/
 /.env

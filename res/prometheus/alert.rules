@@ -1,0 +1,13 @@
+groups:
+- name: jobserver
+
+  rules:
+    - alert: lots_of_pending_tasks
+      expr: sum(jobserver_default_task_ready) > 20
+      for: 15s
+
+    - alert: task_fails
+      expr: deriv(jobserver_default_task_buried[1m]) > 0
+      for: 10s
+      labels:
+        severity: major

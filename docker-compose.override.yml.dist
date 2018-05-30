@@ -1,4 +1,4 @@
-version: '2'
+version: '3.1'
 
 services:
   tarantool:
@@ -26,3 +26,4 @@ services:
       # https://github.com/basis-company/tarantool-admin#configure-using-env
       - TARANTOOL_TCP_NODELAY=1
       - TARANTOOL_DATABASE_QUERY=0
+      - TARANTOOL_CONNECTIONS=jobserver:jobserver@tarantool:3301

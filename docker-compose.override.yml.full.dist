@@ -1,0 +1,109 @@
+version: '3.1'
+
+services:
+  tarantool:
+    container_name: jobserver_tarantool
+    image: haproxy:1-alpine
+    restart: always
+    volumes:
+      - ./res/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    command: ""
+    ports:
+      - "3301:3301"
+      - "8080:8080"
+    environment: []
+    depends_on:
+      - tarantool1
+      - tarantool2
+  tarantool1:
+    container_name: jobserver_tarantool1
+    image: tarantool/tarantool:1
+    restart: always
+    volumes:
+      - ./app/config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
+      - ./app/jobserver.lua:/usr/share/tarantool/jobserver.lua
+      - ./app/monitor.lua:/usr/share/tarantool/monitor.lua
+      - ./app/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
+    command: tarantool /opt/tarantool/jobserver_instance.lua
+    ports:
+      - "3302:3301"
+    environment:
+      - TARANTOOL_REPLICATION_SOURCE=tarantool1,tarantool2
+      - TARANTOOL_USER_NAME
+      - TARANTOOL_USER_PASSWORD
+      - TARANTOOL_MONITOR_HOST
+      - TARANTOOL_MONITOR_PORT
+  tarantool2:
+    container_name: jobserver_tarantool2
+    image: tarantool/tarantool:1
+    restart: always
+    environment:
+      - TARANTOOL_REPLICATION_SOURCE=tarantool1,tarantool2
+      - TARANTOOL_USER_NAME
+      - TARANTOOL_USER_PASSWORD
+      - TARANTOOL_MONITOR_HOST
+      - TARANTOOL_MONITOR_PORT
+    volumes:
+      - ./app/config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
+      - ./app/jobserver.lua:/usr/share/tarantool/jobserver.lua
+      - ./app/monitor.lua:/usr/share/tarantool/monitor.lua
+      - ./app/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
+    command: tarantool /opt/tarantool/jobserver_instance.lua
+    ports:
+      - "3303:3301"
+  worker:
+    volumes:
+      - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+      - ./docker/worker/dev.ini:/usr/local/etc/php/conf.d/99-dev.ini
+    environment:
+      - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
+      - TNT_JOBQUEUE_USER=${TARANTOOL_USER_NAME}
+      - TNT_JOBQUEUE_PASSWORD=${TARANTOOL_USER_PASSWORD}
+      - XDEBUG_CONFIG=remote_host=${LOCAL_IP}
+      - PHP_IDE_CONFIG=serverName=jobserver.local
+  tarantool_admin:
+    container_name: jobserver_tarantool_admin
+    image: quay.io/basis-company/tarantool-admin
+    restart: always
+    ports:
+      - "8001:80"
+    depends_on:
+      - tarantool
+    environment:
+      # https://github.com/basis-company/tarantool-admin#configure-using-env
+      - TARANTOOL_TCP_NODELAY=1
+      - TARANTOOL_DATABASE_QUERY=1
+      - TARANTOOL_CONNECTIONS=jobserver:jobserver@tarantool:3301,jobserver:jobserver@tarantool1:3301,jobserver:jobserver@tarantool2:3301
+  prometheus:
+    container_name: jobserver_prometheus
+    image: prom/prometheus:latest
+    restart: always
+    volumes:
+      - ./res/prometheus/alert.rules:/etc/prometheus/alert.rules
+      - ./res/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--log.level=debug'
+  alertmanager:
+    container_name: jobserver_alertmanager
+    image: prom/alertmanager:latest
+    restart: always
+    volumes:
+      - ./res/prometheus/alertmanager.yml:/etc/alertmanager/config.yml
+    ports:
+      - "9093:9093"
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--log.level=debug'
+  grafana:
+    container_name: jobserver_grafana
+    image: grafana/grafana:latest
+    restart: always
+    volumes:
+      - ./res/grafana/provisioning:/etc/grafana/provisioning
+      - ./var/grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    user: "0"

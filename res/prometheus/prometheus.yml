@@ -1,0 +1,21 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+  external_labels:
+    monitor: 'jobserver-monitor'
+
+scrape_configs:
+  - job_name: 'jobserver'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['tarantool:8080']
+
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets: ['alertmanager:9093']
+
+rule_files:
+  - 'alert.rules'

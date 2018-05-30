@@ -1,7 +1,8 @@
 # JobServer
 
-JobServer is a skeleton repository used for creating background jobs. 
-It contains the minimal configuration files and folders you will need for quick start from scratch.
+JobServer is a skeleton repository used for creating and processing background jobs 
+backed by [Tarantool](http://tarantool.org/). It contains configuration files and folders 
+you will need for quick start from scratch.
 
 
 ## Installation
@@ -16,9 +17,10 @@ composer create-project tarantool/jobserver -s dev
 ## Quick start
 
 First, create your own `docker-compose.override.yml` file by copying 
-the [docker-compose.override.yml.dist](docker-compose.override.yml.dist) file 
-and customize to your needs. Do the same for [.env.dist](.env.dist) 
-and all `*.dist` files located in [app/config](app/config).
+[docker-compose.override.yml.dist](docker-compose.override.yml.dist) (or 
+[docker-compose.override.yml.full.dist](docker-compose.override.yml.full.dist) if you want to test the full setup 
+including a Tarantool cluster with automatic failover and monitoring tools) and customize to your needs. 
+Do the same for [.env.dist](.env.dist) and all `*.dist` files located in [app/config](app/config) and [res](res).
 
 Then, browse to the project directory and execute this command:
 
@@ -125,9 +127,20 @@ LOCAL_IP=<your-local-ip> docker-compose run --rm worker bash -c ' \
 '
 ```
 
-> *Check [this manual](https://confluence.jetbrains.com/display/PhpStorm/Simultaneous+debugging+sessions+with+PhpStorm) to learn 
-> how to debug multiple processes (for example, the runner and background jobs) 
+> *Check [this manual](https://confluence.jetbrains.com/display/PhpStorm/Simultaneous+debugging+sessions+with+PhpStorm) 
+> to learn how to debug multiple processes (for example, the runner and background jobs) 
 > simultaneously in PhpStorm.*
+
+
+## Monitoring
+
+Open your browser and access:
+
+ * [Prometheus](http://localhost:9090/) 
+ * [Alert manager](http://localhost:9093/)
+ * [Grafana](http://localhost:3000/) 
+
+![Grafana](/res/grafana/screenshot.png)
 
 
 ## License

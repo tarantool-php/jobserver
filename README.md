@@ -109,6 +109,9 @@ Open your browser and access:
 
 ![Grafana](/res/grafana/screenshot.png)
 
+> *Make sure to use a copy of [docker-compose.override.yml.full.dist](docker-compose.override.yml.full.dist) 
+> to have all monitoring containers running.*
+
 
 ## Testing
 

@@ -26,4 +26,4 @@ services:
       # https://github.com/basis-company/tarantool-admin#configure-using-env
       - TARANTOOL_TCP_NODELAY=1
       - TARANTOOL_DATABASE_QUERY=0
-      - TARANTOOL_CONNECTIONS=jobserver:jobserver@tarantool:3301
+      - TARANTOOL_CONNECTIONS=${TARANTOOL_USER_NAME}:${TARANTOOL_USER_PASSWORD}@tarantool:3301

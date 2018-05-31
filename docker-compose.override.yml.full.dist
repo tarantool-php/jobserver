@@ -73,7 +73,7 @@ services:
       # https://github.com/basis-company/tarantool-admin#configure-using-env
       - TARANTOOL_TCP_NODELAY=1
       - TARANTOOL_DATABASE_QUERY=1
-      - TARANTOOL_CONNECTIONS=jobserver:jobserver@tarantool:3301,jobserver:jobserver@tarantool1:3301,jobserver:jobserver@tarantool2:3301
+      - TARANTOOL_CONNECTIONS=${TARANTOOL_USER_NAME}:${TARANTOOL_USER_PASSWORD}@tarantool:3301,${TARANTOOL_USER_NAME}:${TARANTOOL_USER_PASSWORD}@tarantool1:3301,${TARANTOOL_USER_NAME}:${TARANTOOL_USER_PASSWORD}@tarantool2:3301
   prometheus:
     container_name: jobserver_prometheus
     image: prom/prometheus:latest

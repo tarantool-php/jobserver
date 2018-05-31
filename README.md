@@ -99,14 +99,25 @@ sudo tarantoolctl connect $TNT_JOBQUEUE_USER:$TNT_JOBQUEUE_PASSWORD@$TNT_JOBQUEU
 ```
 
 
-## Tests
+## Monitoring
+
+Open your browser and access:
+
+ * [Prometheus](http://localhost:9090/) 
+ * [Alert manager](http://localhost:9093/)
+ * [Grafana](http://localhost:3000/) 
+
+![Grafana](/res/grafana/screenshot.png)
+
+
+## Testing
 
 ```sh
 docker-compose exec worker vendor/bin/phpunit
 ```
 
 
-## Debug
+## Debugging
 
 To debug a job runner, first, stop the worker container
 
@@ -130,17 +141,6 @@ LOCAL_IP=<your-local-ip> docker-compose run --rm worker bash -c ' \
 > *Check [this manual](https://confluence.jetbrains.com/display/PhpStorm/Simultaneous+debugging+sessions+with+PhpStorm) 
 > to learn how to debug multiple processes (for example, the runner and background jobs) 
 > simultaneously in PhpStorm.*
-
-
-## Monitoring
-
-Open your browser and access:
-
- * [Prometheus](http://localhost:9090/) 
- * [Alert manager](http://localhost:9093/)
- * [Grafana](http://localhost:3000/) 
-
-![Grafana](/res/grafana/screenshot.png)
 
 
 ## License

@@ -27,7 +27,7 @@ jobserver = require('jobserver')
 jobserver.start(config)
 
 -- start monitoring
-if config.monitor.host then
+if config.monitor then
     require('monitor').monitor(
         config.monitor.host,
         config.monitor.port,

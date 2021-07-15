@@ -6,7 +6,7 @@ services:
     image: haproxy:1-alpine
     restart: always
     volumes:
-      - ./res/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./etc/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     command: ""
     ports:
       - "3301:3301"
@@ -20,17 +20,17 @@ services:
     image: tarantool/tarantool:1
     restart: always
     volumes:
-      - ./app/config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
-      - ./app/jobserver.lua:/usr/share/tarantool/jobserver.lua
-      - ./app/monitor.lua:/usr/share/tarantool/monitor.lua
-      - ./app/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
+      - ./config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
+      - ./etc/tarantool/jobserver.lua:/usr/share/tarantool/jobserver.lua
+      - ./etc/tarantool/monitor.lua:/usr/share/tarantool/monitor.lua
+      - ./etc/tarantool/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
     command: tarantool /opt/tarantool/jobserver_instance.lua
     ports:
       - "3302:3301"
     environment:
       - TARANTOOL_REPLICATION_SOURCE=tarantool1,tarantool2
-      - TARANTOOL_USER_NAME
-      - TARANTOOL_USER_PASSWORD
+      - TARANTOOL_USER
+      - TARANTOOL_PASSWORD
       - TARANTOOL_MONITOR_HOST
       - TARANTOOL_MONITOR_PORT
   tarantool2:
@@ -39,15 +39,15 @@ services:
     restart: always
     environment:
       - TARANTOOL_REPLICATION_SOURCE=tarantool1,tarantool2
-      - TARANTOOL_USER_NAME
-      - TARANTOOL_USER_PASSWORD
+      - TARANTOOL_USER
+      - TARANTOOL_PASSWORD
       - TARANTOOL_MONITOR_HOST
       - TARANTOOL_MONITOR_PORT
     volumes:
-      - ./app/config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
-      - ./app/jobserver.lua:/usr/share/tarantool/jobserver.lua
-      - ./app/monitor.lua:/usr/share/tarantool/monitor.lua
-      - ./app/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
+      - ./config/jobserver_config.lua:/opt/tarantool/jobserver_config.lua
+      - ./etc/tarantool/jobserver.lua:/usr/share/tarantool/jobserver.lua
+      - ./etc/tarantool/monitor.lua:/usr/share/tarantool/monitor.lua
+      - ./etc/tarantool/jobserver_instance.lua:/opt/tarantool/jobserver_instance.lua
     command: tarantool /opt/tarantool/jobserver_instance.lua
     ports:
       - "3303:3301"
@@ -57,8 +57,8 @@ services:
       - ./docker/worker/dev.ini:/usr/local/etc/php/conf.d/99-dev.ini
     environment:
       - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
-      - TNT_JOBQUEUE_USER=${TARANTOOL_USER_NAME}
-      - TNT_JOBQUEUE_PASSWORD=${TARANTOOL_USER_PASSWORD}
+      - TNT_JOBQUEUE_USER=${TARANTOOL_USER}
+      - TNT_JOBQUEUE_PASSWORD=${TARANTOOL_PASSWORD}
       - XDEBUG_CONFIG=remote_host=${LOCAL_IP}
       - PHP_IDE_CONFIG=serverName=jobserver.local
   tarantool_admin:
@@ -73,14 +73,14 @@ services:
       # https://github.com/basis-company/tarantool-admin#configure-using-env
       - TARANTOOL_TCP_NODELAY=1
       - TARANTOOL_DATABASE_QUERY=1
-      - TARANTOOL_CONNECTIONS=${TARANTOOL_USER_NAME}:${TARANTOOL_USER_PASSWORD}@tarantool:3301,${TARANTOOL_USER_NAME}:${TARANTOOL_USER_PASSWORD}@tarantool1:3301,${TARANTOOL_USER_NAME}:${TARANTOOL_USER_PASSWORD}@tarantool2:3301
+      - TARANTOOL_CONNECTIONS=${TARANTOOL_USER}:${TARANTOOL_PASSWORD}@tarantool:3301,${TARANTOOL_USER}:${TARANTOOL_PASSWORD}@tarantool1:3301,${TARANTOOL_USER}:${TARANTOOL_PASSWORD}@tarantool2:3301
   prometheus:
     container_name: jobserver_prometheus
     image: prom/prometheus:latest
     restart: always
     volumes:
-      - ./res/prometheus/alert.rules:/etc/prometheus/alert.rules
-      - ./res/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./etc/prometheus/alert.rules:/etc/prometheus/alert.rules
+      - ./etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
     command:
@@ -91,7 +91,7 @@ services:
     image: prom/alertmanager:latest
     restart: always
     volumes:
-      - ./res/prometheus/alertmanager.yml:/etc/alertmanager/config.yml
+      - ./etc/prometheus/alertmanager.yml:/etc/alertmanager/config.yml
     ports:
       - "9093:9093"
     command:
@@ -102,7 +102,7 @@ services:
     image: grafana/grafana:latest
     restart: always
     volumes:
-      - ./res/grafana/provisioning:/etc/grafana/provisioning
+      - ./etc/grafana/provisioning:/etc/grafana/provisioning
       - ./var/grafana:/var/lib/grafana
     ports:
       - "3000:3000"

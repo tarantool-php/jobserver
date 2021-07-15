@@ -42,7 +42,7 @@ that writes a greeting to the log. By running the following command:
 
 
 ```sh
-docker-compose exec worker ./jobserver queue:put default -H tarantool \
+docker-compose exec worker bin/jobserver queue:put default -H tarantool \
     '{"payload": {"service": "greet", "args": {"name": "foobar"}}}'
 ```
 
@@ -60,7 +60,7 @@ Now in the log you will see that the job is executed:
 Also, you can run the job directly in the console, bypassing the queue:
 
 ```sh
-docker-compose exec worker ./jobserver -vvv handler:greet foobar
+docker-compose exec worker bin/jobserver -vvv handler:greet foobar
 ```
 
 To be able to run a job from the console, you need to write an adapter for the symfony command 
@@ -70,7 +70,7 @@ looks like for GreetHandler: [GreetCommand](src/UseCase/Greet/GreetCommand.php).
 To see a list of all registered commands, run:
 
 ```sh
-docker-compose exec worker ./jobserver
+docker-compose exec worker bin/jobserver
 ```
 
 

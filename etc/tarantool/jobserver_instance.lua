@@ -1,9 +1,15 @@
 #!/usr/bin/env tarantool
 
 box.cfg {
+    -- listen = os.getenv('LISTEN_URI'):gsub('^unix://', '', 1):gsub('^unix/:', '', 1):gsub('^tcp://', '', 1),
     listen = 3301,
     log_level = 5
 }
+
+-- allow group users to access the socket
+if '/' == string.sub(box.cfg.listen, 1, 1) then
+    require('fio').chmod(box.cfg.listen, tonumber('0664', 8))
+end
 
 if jobserver ~= nil then
     -- hot code reload using tarantoolctl or dofile()
@@ -17,9 +23,11 @@ end
 local config = require('jobserver_config')
 
 -- ensure a user exists
-if not box.schema.user.exists(config.user) then
-    box.schema.user.create(config.user, {password = config.password})
-    box.schema.user.grant(config.user, 'read,write,execute', 'universe', nil)
+if config.user then
+    box.schema.user.create(config.user, {
+        if_not_exists = true,
+        password = config.password
+    })
 end
 
 -- load a new version of app and all dependencies

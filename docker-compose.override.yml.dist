@@ -10,8 +10,8 @@ services:
       - ./docker/worker/dev.ini:/usr/local/etc/php/conf.d/99-dev.ini
     environment:
       - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
-      - TNT_JOBQUEUE_USER=${TARANTOOL_USER_NAME}
-      - TNT_JOBQUEUE_PASSWORD=${TARANTOOL_USER_PASSWORD}
+      - TNT_JOBQUEUE_USER=${TARANTOOL_USER}
+      - TNT_JOBQUEUE_PASSWORD=${TARANTOOL_PASSWORD}
       - XDEBUG_CONFIG=remote_host=${LOCAL_IP}
       - PHP_IDE_CONFIG=serverName=jobserver.local
   tarantool_admin:
@@ -26,4 +26,4 @@ services:
       # https://github.com/basis-company/tarantool-admin#configure-using-env
       - TARANTOOL_TCP_NODELAY=1
       - TARANTOOL_DATABASE_QUERY=1
-      - TARANTOOL_CONNECTIONS=${TARANTOOL_USER_NAME}:${TARANTOOL_USER_PASSWORD}@tarantool:3301
+      - TARANTOOL_CONNECTIONS=${TARANTOOL_USER}:${TARANTOOL_PASSWORD}@tarantool:3301

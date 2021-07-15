@@ -1,25 +1,84 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__)
-    ->exclude('docker')
-    ->exclude('res')
-    ->exclude('var')
-;
+declare(strict_types=1);
 
-return PhpCsFixer\Config::create()
-    ->setFinder($finder)
+namespace App;
+
+use PhpCsFixer\Config;
+use PhpCsFixer\Fixer\ConstantNotation\NativeConstantInvocationFixer;
+use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer;
+use PhpCsFixer\Tokenizer\Tokens;
+
+final class FilterableFixer implements FixerInterface
+{
+    private $fixer;
+    private $pathRegex;
+
+    public function __construct(FixerInterface $fixer, string $pathRegex)
+    {
+        $this->fixer = $fixer;
+        $this->pathRegex = $pathRegex;
+    }
+
+    public function isCandidate(Tokens $tokens) : bool
+    {
+        return $this->fixer->isCandidate($tokens);
+    }
+
+    public function isRisky() : bool
+    {
+        return $this->fixer->isRisky();
+    }
+
+    public function fix(\SplFileInfo $file, Tokens $tokens) : void
+    {
+        $this->fixer->fix($file, $tokens);
+    }
+
+    public function getName() : string
+    {
+        return (new \ReflectionClass($this))->getShortName().'/'.$this->fixer->getName();
+    }
+
+    public function getPriority() : int
+    {
+        return $this->fixer->getPriority();
+    }
+
+    public function supports(\SplFileInfo $file) : bool
+    {
+        if (1 !== preg_match($this->pathRegex, $file->getRealPath())) {
+            return false;
+        }
+
+        return $this->fixer->supports($file);
+    }
+};
+
+return Config::create()
+    ->setUsingCache(false)
     ->setRiskyAllowed(true)
+    ->registerCustomFixers([
+        new FilterableFixer(new NativeConstantInvocationFixer(), '/\bsrc\b/'),
+        new FilterableFixer(new NativeFunctionInvocationFixer(), '/\bsrc\b/'),
+    ])
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'binary_operator_spaces' => ['operators' => ['=' => null, '=>' => null]],
+        'declare_strict_types' => true,
+        'native_constant_invocation' => false,
+        'native_function_invocation' => false,
+        'FilterableFixer/native_constant_invocation' => true,
+        'FilterableFixer/native_function_invocation' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
         'ordered_imports' => true,
         'phpdoc_order' => true,
-        'php_unit_strict' => true,
-        'strict_comparison' => true,
+        'phpdoc_align' => false,
+        'return_type_declaration' => ['space_before' => 'one'],
+        'strict_comparison' => true
     ])
-    ->setCacheFile(__DIR__.'/var/.php_cs.cache')
 ;

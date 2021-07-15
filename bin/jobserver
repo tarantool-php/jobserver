@@ -1,26 +1,23 @@
 #!/usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
-use PackageVersions\Versions;
 use Symfony\Component\Console\Application;
 use Tarantool\JobQueue\Console\Command\KickCommand;
 use Tarantool\JobQueue\Console\Command\PutCommand;
 use Tarantool\JobQueue\Console\Command\StatsCommand;
 use Tarantool\JobQueue\Console\Command\TruncateCommand;
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
-$version = Versions::getVersion(Versions::ROOT_PACKAGE_NAME);
-$app = new Application('Job Server', $version);
+$app = Kernel::fromEnv()->getContainer()->get(Application::class);
 
 $app->add((new KickCommand())->setName('queue:kick'));
 $app->add((new PutCommand())->setName('queue:put'));
 $app->add((new StatsCommand())->setName('queue:stats'));
 $app->add((new TruncateCommand())->setName('queue:truncate'));
-
-$getCommands = require __DIR__.'/app/config/commands.php';
-$app->addCommands($getCommands(container()));
 
 $app->run();
